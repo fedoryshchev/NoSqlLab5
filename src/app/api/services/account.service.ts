@@ -5,7 +5,7 @@ import { BaseService as __BaseService } from '../base-service';
 import { ApiConfiguration as __Configuration } from '../api-configuration';
 import { StrictHttpResponse as __StrictHttpResponse } from '../strict-http-response';
 import { Observable as __Observable } from 'rxjs';
-import { map as __map, filter as __filter } from 'rxjs/operators';
+import { map as __map, filter as __filter, tap } from 'rxjs/operators';
 
 import { RegisterDTO } from '../models/register-dto';
 import { AuthenticationToken } from '../models/authentication-token';
@@ -90,8 +90,17 @@ class AccountService extends __BaseService {
    */
   Login(dto?: LoginDTO): __Observable<AuthenticationToken> {
     return this.LoginResponse(dto).pipe(
-      __map(_r => _r.body as AuthenticationToken)
+      __map(_r => _r.body as AuthenticationToken),
+      tap(token => sessionStorage.setItem('jwt', token.value))
     );
+  }
+
+  public isSignedIn(): boolean {
+    return !!sessionStorage.getItem('jwt');
+  }
+
+  public signOut(): void {
+    sessionStorage.removeItem('jwt');
   }
 }
 
