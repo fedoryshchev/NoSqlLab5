@@ -12,7 +12,7 @@
         <div class="dropdown-menu">
           <div *ngIf="!authService.isSignedIn()">
             <span routerLink="/signin" class="dropdown-item">In</span>
-            <span routerLink="/signup" class="dropdown-item">Up}</span>
+            <span routerLink="/signup" class="dropdown-item">Up</span>
           </div>
           <div *ngIf="authService.isSignedIn()">
             <span (click)="authService.signOut()" 
