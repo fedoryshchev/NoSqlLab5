@@ -15,6 +15,7 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { NotesComponent } from './components/notes/notes.component';
 import { NoteComponent } from './components/note/note.component';
 import { EditNoteComponent } from './components/edit-note/edit-note.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 export function tokenGetter() {
   return sessionStorage.getItem('jwt');
@@ -27,7 +28,8 @@ export function tokenGetter() {
     SignUpComponent,
     NotesComponent,
     NoteComponent,
-    EditNoteComponent
+    EditNoteComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,26 @@
+<div class="container"> 
+  <nav class="navbar navbar-dark bg-primary">
+    <div class="navbar-brand">
+      <a routerLink="/" class="navbar-brand">Home</a>
+      <a routerLink="notes" class="navbar-brand">Notes</a>
+    </div>
+    <div class="btn-group">          
+      <div class="btn-group">
+        <button type="button" class="btn btn-primary dropdown-toggle btn-outline-success" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <span>Sign&nbsp;</span>
+        </button>
+        <div class="dropdown-menu">
+          <div *ngIf="!authService.isSignedIn()">
+            <span routerLink="/signin" class="dropdown-item">In</span>
+            <span routerLink="/signup" class="dropdown-item">Up}</span>
+          </div>
+          <div *ngIf="authService.isSignedIn()">
+            <span (click)="authService.signOut()" 
+            class="dropdown-item">Out</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </nav>
+</div>
