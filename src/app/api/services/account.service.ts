@@ -10,6 +10,7 @@ import { map as __map, filter as __filter, tap } from 'rxjs/operators';
 import { RegisterDTO } from '../models/register-dto';
 import { AuthenticationToken } from '../models/authentication-token';
 import { LoginDTO } from '../models/login-dto';
+import { tokenGetter } from 'src/app/app.module';
 @Injectable({
   providedIn: 'root',
 })

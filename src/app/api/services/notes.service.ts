@@ -4,11 +4,12 @@ import { HttpClient, HttpRequest, HttpResponse, HttpHeaders } from '@angular/com
 import { BaseService as __BaseService } from '../base-service';
 import { ApiConfiguration as __Configuration } from '../api-configuration';
 import { StrictHttpResponse as __StrictHttpResponse } from '../strict-http-response';
-import { Observable as __Observable } from 'rxjs';
+import { Observable as __Observable, BehaviorSubject, Observable } from 'rxjs';
 import { map as __map, filter as __filter } from 'rxjs/operators';
 
 import { Note } from '../models/note';
 import { User } from '../models/user';
+import { nodeChildrenAsMap } from '@angular/router/src/utils/tree';
 @Injectable({
   providedIn: 'root',
 })
@@ -18,11 +19,25 @@ class NotesService extends __BaseService {
   static readonly PutPath = '/api/Notes/{id}';
   static readonly DeletePath = '/api/Notes/{id}';
 
+  private selectedNote = new BehaviorSubject(null);
+
   constructor(
     config: __Configuration,
     http: HttpClient
   ) {
     super(config, http);
+  }
+
+  public createOrUpdate(note: Note) {
+    return note.id ? this.Put({id: note.id, note}) : this.Post(note);
+  }
+
+  public selectNote(note: Note) {
+    this.selectedNote.next(note);
+  }
+
+  public getSelectedNote(): Observable<Note> {
+    return this.selectedNote.asObservable();
   }
 
   /**

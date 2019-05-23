@@ -1,3 +1,23 @@
-<p>
-  notes works!
-</p>
+<div class="mx-auto col-3">
+  <div class="form-group">
+      <label>Include all notes</label>
+      <input (click)="toggleIncludeAll()" type="checkbox" class="form-control">
+    </div>
+
+  <div (click)="selectNote()" routerLink="/note/create" class="btn btn-primary">
+    Create new note
+  </div>
+  <br>
+  <div class="row">
+    <p class="col"> 
+      List of notes:
+    </p>
+  </div>
+  <div class="row"> 
+    <ul>
+      <li *ngFor="let note of this.notes$ | async" [value]="note.id">
+        <a (click)="selectNote(note)" [routerLink]="['/note', note.id]">{{note.text}}</a>
+      </li>
+    </ul>    
+  </div>
+</div>

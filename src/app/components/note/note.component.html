@@ -1,3 +1,14 @@
-<p>
-  note works!
-</p>
+<div class="col-3 mx-auto text-center">
+  <div *ngIf="note$ | async as note" class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">{{note.id}}</h5>
+      <p class="card-text">{{note.text}}</p>
+      <div>
+        <a [routerLink]="['/note/edit/', note.id]" class="mx-4 btn btn-primary">
+          Edit
+        </a>
+        <a (click)="Delete(note.id)" class="mx-4 btn btn-danger">Delete</a>
+      </div>        
+    </div>
+  </div>
+</div>

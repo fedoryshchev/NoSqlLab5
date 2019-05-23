@@ -1,3 +1,20 @@
-<p>
-  edit-note works!
-</p>
+<div class="col-md-4 offset-4">
+
+  <form [formGroup]="noteForm" #ntForm="ngForm">
+
+    <div class="form-group">
+      <label>Text:</label>
+      <input type="text" class="form-control" formControlName="text" required >
+    </div>
+
+    <div class="alert alert-danger" *ngIf="ntForm.submitted && this.noteForm.controls[text].errors">
+      <div *ngIf="this.noteForm.controls[text].errors.required">
+          Text is required.
+      </div>
+    </div>
+
+  <button type="submit" (click)="Submit()" class="btn btn-primary">Submit</button>
+  
+  </form>
+  <br>
+</div>
