@@ -15,6 +15,7 @@ import { nodeChildrenAsMap } from '@angular/router/src/utils/tree';
 })
 class NotesService extends __BaseService {
   static readonly GetPath = '/api/Notes/{includeAll}';
+  static readonly specificPostPath = '/api/Notes/specific';
   static readonly PostPath = '/api/Notes';
   static readonly PutPath = '/api/Notes/{id}';
   static readonly DeletePath = '/api/Notes/{id}';
@@ -26,6 +27,12 @@ class NotesService extends __BaseService {
     http: HttpClient
   ) {
     super(config, http);
+  }
+
+  public GetSpecific(settings): Observable<Note[]> {
+    return this.http.post<Note[]>(
+      this.rootUrl + NotesService.specificPostPath, 
+      settings);
   }
 
   public createOrUpdate(note: Note) {

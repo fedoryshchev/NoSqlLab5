@@ -11,12 +11,14 @@ import { NotesService } from 'src/app/api/services';
   styleUrls: ['./edit-note.component.css']
 })
 export class EditNoteComponent implements OnInit, OnDestroy {
+  public name = 'name';
   public text = 'text';
 
   private createOrUpdateSubscription: Subscription;
 
   public noteForm = this.fb.group({
     id: [''],
+    name: ['', Validators.required],
     text: ['', [Validators.required]]
   });
 
@@ -28,7 +30,13 @@ export class EditNoteComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.noteService.getSelectedNote().subscribe(
-      note => this.noteForm.patchValue(note)
+      note => {
+        if (note)
+        {
+          console.log(note);
+          this.noteForm.setValue(note);
+        }
+      }
     );
   }
 
@@ -36,9 +44,10 @@ export class EditNoteComponent implements OnInit, OnDestroy {
     if (this.noteForm.valid) {
       this.createOrUpdateSubscription = this.noteService.createOrUpdate(
         this.noteForm.value 
-      ).subscribe(note => 
-        this.router.navigateByUrl(`note/edit/${note.id}`)
-      );
+      ).subscribe(note => {
+        this.noteService.selectNote(note);
+        this.router.navigateByUrl(`note/edit/${note.id}`);
+      });
     }
   }
 
